@@ -6,6 +6,7 @@ feature "add bookmark" do
 
   scenario "user can view a form for adding a new bookmark" do
     expect(page).to have_field("URL")
+    expect(page).to have_field("Name")
   end
 
   scenario "new bookmark is added to bookmarks page" do
