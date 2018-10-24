@@ -6,8 +6,8 @@ describe Bookmark do
   describe '.all' do
 
     before do
-      @bookmark_one = Bookmark.create(name: "Facebook", url: "www.facebook.com")
-      @bookmark_two = Bookmark.create(name: "Twitter", url: "www.twitter.com")
+      @bookmark_one = Bookmark.create(name: "Facebook", url: "http://www.facebook.com")
+      @bookmark_two = Bookmark.create(name: "Twitter", url: "http://www.twitter.com")
     end
 
     it 'returns list of bookmarks' do
@@ -30,6 +30,11 @@ describe Bookmark do
       expect(bookmark).to be_a Bookmark
       expect(bookmark.name).to eq "Facebook"
       expect(bookmark.url).to eq "http://www.facebook.com"
+    end
+
+    it 'does not create bookmark with invalid url' do
+      Bookmark.create(name: "fake", url: "INVALID")
+      expect(Bookmark.all.length).to be_zero
     end
   end
 
