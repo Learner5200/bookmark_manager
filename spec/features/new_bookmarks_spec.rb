@@ -15,4 +15,13 @@ feature "add bookmark" do
     click_button 'Submit'
     expect(page).to have_link('Facebook', href: 'http://www.facebook.com')
   end
+
+  scenario "error message if url invalid" do
+    fill_in("Name", with: "Facebook")
+    fill_in("URL", with: "INVALID")
+    click_button 'Submit'
+    expect(page).not_to have_content('Facebook')
+    expect(page).to have_content('Please enter a valid URL.')
+  end
+
 end

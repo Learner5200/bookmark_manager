@@ -1,8 +1,12 @@
 require 'sinatra/base'
+require 'sinatra/flash'
 require './lib/bookmark'
+require 'uri'
 
 class BookmarkManager < Sinatra::Base
   set :port, 5678
+  enable :sessions
+  register Sinatra::Flash
 
   get '/' do
     redirect '/bookmarks'
@@ -18,7 +22,11 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/bookmarks' do
-    Bookmark.create(name: params[:Name], url: params[:URL])
+    if params[:URL] =~ /\A#{URI::regexp(['http', 'https'])}\z/
+      Bookmark.create(name: params[:Name], url: params[:URL])
+    else
+      flash[:notice] = "Please enter a valid URL."
+    end
     redirect '/bookmarks'
   end
 
