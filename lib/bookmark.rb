@@ -43,7 +43,7 @@ class Bookmark
 end
 
 class Bookmark
-  attr_reader :name, :url, :id
+  attr_reader :name, :url, :id, :comments
   def initialize(name, url, id)
     @name, @url, @id = name, url, id
   end
