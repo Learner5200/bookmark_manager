@@ -1,4 +1,6 @@
 require 'pry'
+require 'uri'
+require 'comment'
 
 class Bookmark
 
@@ -36,7 +38,7 @@ class Bookmark
 
   private
   def self.is_url?(string)
-    string =~ /\A#{URI::regexp(['http', 'https'])}\z/
+    string.match(/\A#{URI::regexp(['http', 'https'])}\z/)
   end
 end
 
@@ -44,5 +46,13 @@ class Bookmark
   attr_reader :name, :url, :id
   def initialize(name, url, id)
     @name, @url, @id = name, url, id
+  end
+
+  def comments
+    query = "SELECT * FROM comments WHERE bookmark_id = '#{@id}';"
+    rows = DatabaseConnection.query(query)
+    rows.map do |row|
+      Comment.new(id: row["id"], bookmark_id: @id, text: row["text"])
+    end
   end
 end

@@ -17,11 +17,15 @@
     <input type='submit' id='Delete_<%= bookmark.id %>' value='Delete'>
   </form>
 
+  <form action = '/bookmarks/<%= bookmark.id %>/comments/new'>
+    <input type='submit' id='Comment_<%= bookmark.id %>' value='Comment'>
+  </form>
+
 <% end %>
 
 <br>
 <br>
 
-<form action = '/new'>
+<form action = '/bookmarks/new'>
   <input type = 'submit' value = 'Add Bookmark'>
 </form>

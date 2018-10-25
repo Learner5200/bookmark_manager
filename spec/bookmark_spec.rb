@@ -1,4 +1,5 @@
 require "bookmark"
+require "comment"
 require 'pry'
 
 describe Bookmark do
@@ -65,6 +66,31 @@ describe Bookmark do
       expect(new_bookmark.id).to eq bookmark.id
       expect(new_bookmark.name).to eq "Google"
       expect(new_bookmark.url).to eq "http://www.google.com"
+    end
+  end
+
+  describe '#comments' do
+    before do
+      @bookmark = Bookmark.create(name: "Facebook", url: "http://www.facebook.com")
+      @comment_one = Comment.create(bookmark_id: @bookmark.id, text: "Nice link bro")
+      @comment_two = Comment.create(bookmark_id: @bookmark.id, text: "I concur")
+    end
+
+    it 'returns an array of comment objects' do
+      @bookmark.comments.each do |comment|
+        expect(comment).to be_a Comment
+      end
+    end
+
+    it 'returns all the comments' do
+      expect(@bookmark.comments.length).to eq 2
+    end
+
+    it 'returns comments with original parameters' do
+      first_comment = @bookmark.comments[0]
+      expect(first_comment.text).to eq "Nice link bro"
+      expect(first_comment.bookmark_id).to eq @bookmark.id
+      expect(first_comment.id).to eq @comment_one.id
     end
   end
 

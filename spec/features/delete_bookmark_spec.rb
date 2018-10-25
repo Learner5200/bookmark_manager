@@ -6,7 +6,6 @@ feature 'delete bookmark' do
   end
 
   scenario 'should see delete button' do
-    visit '/bookmarks'
     expect(page).to have_selector(:button, "Delete_#{@bookmark.id}")
   end
 

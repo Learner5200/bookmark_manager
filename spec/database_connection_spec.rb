@@ -1,5 +1,3 @@
-require 'database_connection'
-
 describe DatabaseConnection do
   describe '.setup' do
     it 'sets up connection to database using PG' do
@@ -15,4 +13,5 @@ describe DatabaseConnection do
       DatabaseConnection.query("sql string")
     end
   end
+
 end

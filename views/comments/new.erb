@@ -1,0 +1,9 @@
+<h1>Please enter your comment</h1>
+
+<form action = '/bookmarks/<%= @bookmark.id %>/comments' method = 'post'>
+
+  <label for='comment'>Comment</label>
+  <input type = "text" name = "comment">
+
+  <input type = 'submit' value = 'Submit'>
+</form>
